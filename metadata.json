@@ -1,0 +1,9 @@
+{
+  "uuid": "ispinfo@sawjan",
+  "name": "ISP Info",
+  "description": "Show ISP information",
+  "shell-version": ["42"],
+  "session-modes": ["user"],
+  "gettext-domain": "ispinfo@sawjan",
+  "url": "https://github.com/saw-jan/gnome-shell-ext-ispinfo"
+}
