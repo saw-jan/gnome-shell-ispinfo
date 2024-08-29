@@ -75,13 +75,18 @@ const Indicator = GObject.registerClass(
     }
 
     getISPInfo() {
-      const cmd =
-        'wget -q -O - http://ip-api.com/json?fields=status,isp,org,asname'
+      const url = 'http://ip-api.com/json?fields=status,isp,org,asname'
+      // timeout 10 seconds, retry 1 time
+      const cmd = `wget -q -T 10 -t 1 ${url} -O -`
       const [success, out] = GLib.spawn_command_line_sync(cmd)
       if (success) {
-        return JSON.parse(out.toString())
+        try {
+          return JSON.parse(out.toString())
+        } catch (err) {
+          return null
+        }
       }
-      return null
+      return 1
     }
 
     searchISP() {
@@ -95,6 +100,9 @@ const Indicator = GObject.registerClass(
       if (info && info.status === 'success') {
         this.label.text = info.asname
       } else {
+        if (info === 1) {
+          this.label.text = 'Error'
+        }
         this.label.text = 'Unknown'
       }
     }
