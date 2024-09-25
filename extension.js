@@ -18,20 +18,20 @@
 
 /* exported init */
 
-const { GObject, St, Clutter, GLib } = imports.gi
+import GObject from 'gi://GObject'
+import St from 'gi://St'
+import Clutter from 'gi://Clutter'
+import GLib from 'gi://GLib'
 
-const ExtensionUtils = imports.misc.extensionUtils
-const Main = imports.ui.main
-const PanelMenu = imports.ui.panelMenu
-const PopupMenu = imports.ui.popupMenu
-const Me = ExtensionUtils.getCurrentExtension()
-
-const _ = ExtensionUtils.gettext
+import { Extension } from 'resource:///org/gnome/shell/extensions/extension.js'
+import * as Main from 'resource:///org/gnome/shell/ui/main.js'
+import * as PanelMenu from 'resource:///org/gnome/shell/ui/panelMenu.js'
+import * as PopupMenu from 'resource:///org/gnome/shell/ui/popupMenu.js'
 
 const Indicator = GObject.registerClass(
   class Indicator extends PanelMenu.Button {
     _init() {
-      super._init(0.0, _('ISP Indicator'))
+      super._init(0.0, 'ISP Indicator')
 
       this.ip = ''
       this.timerId = null
@@ -54,7 +54,7 @@ const Indicator = GObject.registerClass(
 
       this.actor.add_child(box)
 
-      let item = new PopupMenu.PopupMenuItem(_('Refresh'))
+      let item = new PopupMenu.PopupMenuItem('Refresh')
       item.connect('activate', () => {
         this.searchISP()
         this.startCron()
@@ -133,12 +133,13 @@ const Indicator = GObject.registerClass(
   }
 )
 
-class Extension {
-  constructor(uuid) {
-    this._uuid = uuid
+export default class ISPInfoExtension extends Extension {
+  constructor(meta) {
+    super(meta)
 
-    ExtensionUtils.initTranslations()
+    this._indicator = null
   }
+
   /**
    * This function is called when your extension is enabled, which could be
    * done in GNOME Extensions, when you log in or when the screen is unlocked.
@@ -162,18 +163,4 @@ class Extension {
     this._indicator.destroy()
     this._indicator = null
   }
-}
-
-/**
- * This function is called once when your extension is loaded, not enabled. This
- * is a good time to setup translations or anything else you only do once.
- *
- * You MUST NOT make any changes to GNOME Shell, connect any signals or add any
- * MainLoop sources here.
- *
- * @param {ExtensionMeta} meta - An extension meta object
- * @returns {object} an object with enable() and disable() methods
- */
-function init(meta) {
-  return new Extension(meta.uuid)
 }
