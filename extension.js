@@ -75,7 +75,7 @@ const Indicator = GObject.registerClass(
     }
 
     getISPInfo() {
-      const url = 'http://ip-api.com/json?fields=status,isp,org,asname'
+      const url = 'https://ipinfo.io'
       // timeout 10 seconds, retry 1 time
       const cmd = `wget -q -T 10 -t 1 ${url} -O -`
       const [success, out] = GLib.spawn_command_line_sync(cmd)
@@ -97,8 +97,11 @@ const Indicator = GObject.registerClass(
 
       this.ip = currentIP
       const info = this.getISPInfo()
-      if (info && info.status === 'success') {
-        this.label.text = info.asname
+      if (info && info.org) {
+        let idx = info.org.indexOf(' ')
+        // remove AS number
+        const isp = info.org.substr(idx)
+        this.label.text = isp
       } else {
         if (info === 1) {
           this.label.text = 'Error'
