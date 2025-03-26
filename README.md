@@ -14,10 +14,6 @@ A simple Gnome Shell Extension to display the current ISP name in the top bar.
 >
 > - `hostname`
 > - `wget`
->
-> API service:
->
-> - [ip-api.com](http://ip-api.com)
 
 ### Installation
 
