@@ -33,6 +33,6 @@ gnome-shell --version
 
 #### For `>= 45` versions
 
-1. Download the latest extension [zip file](https://github.com/saw-jan/gnome-shell-ext-ispinfo/releases)
+1. Download the latest extension [zip file](https://github.com/saw-jan/gnome-shell-ispinfo/releases/tag/2.0.0)
 2. Extract the zip file to `~/.local/share/gnome-shell/extensions`
 3. Enable the extension using the Extensions app
