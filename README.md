@@ -17,6 +17,6 @@ A simple Gnome Shell Extension to display the current ISP name in the top bar.
 
 ### Installation
 
-1. Download the latest extension [zip file](https://github.com/saw-jan/gnome-shell-ispinfo/releases/tag/1.0.0)
+1. Download the latest extension [zip file](https://github.com/saw-jan/gnome-shell-ispinfo/releases/tag/1.1.0)
 2. Extract the zip file to `~/.local/share/gnome-shell/extensions`
 3. Enable the extension using the Extensions app
